@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>😡🐕 Larry Dog Zazu On Story</title>
+    <link rel="icon" href="logo.png" type="image/png" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .social-btn, .buy-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .buy-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            border: 2px solid #ff6b6b;
+            animation: pulse 2s infinite;
+        }
+        
+        .social-btn:hover, .buy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .buy-btn:hover {
+            background: linear-gradient(135deg, #ff5252 0%, #d63031 100%);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            color: white;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .memory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .memory-card.flipped {
+            background: white;
+            border: 3px solid #4facfe;
+        }
+        
+        .memory-card.matched {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border: 3px solid #4facfe;
+            animation: matchPulse 0.6s ease;
+        }
+        
+        .card-content {
+            font-size: 2.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .memory-card.flipped .card-content,
+        .memory-card.matched .card-content {
+            opacity: 1;
+        }
+        
+        .card-back {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+        
+        .memory-card.flipped .card-back,
+        .memory-card.matched .card-back {
+            opacity: 0;
+        }
+        
+        @keyframes matchPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .question-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            color: #555;
+            text-align: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .question-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .game-complete {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            display: none;
+        }
+        
+        .game-complete.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .celebration {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .game-stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .memory-card {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .memory-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .card-content {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="./logo.png" style="width: 80px;border-radius: 50px;" alt="" srcset="">
+        <h1>😡🐕 Larry Dog Memory Game</h1>
+        <p>Match the Larry dog pairs and discover conversation starters!</p>
+        
+        <div class="social-links">
+            <a href="https://x.com/LarryDog_Story" target="_blank" class="social-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                X (Twitter)
+            </a>
+            <a href="https://t.me/LarryDog_Story" target="_blank" class="social-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+                Telegram
+            </a>
+            <button class="buy-btn" onclick="handleBuyNow()">
+                💰 Buy Now
+            </button>
+        </div>
+    </div>
+    
+    <div class="game-container">
+        <div class="game-stats">
+            <div class="stat">
+                <div class="stat-value" id="moves">0</div>
+                <div class="stat-label">Moves</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="matches">0/6</div>
+                <div class="stat-label">Matches</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="timer">00:00</div>
+                <div class="stat-label">Time</div>
+            </div>
+        </div>
+        
+        <div class="memory-grid" id="gameGrid">
+            <!-- Cards will be generated by JavaScript -->
+        </div>
+        
+        <div class="question-section">
+            <div class="question-title">💬 Conversation Starter</div>
+            <div class="question-text" id="questionText">
+                Which emoji best describes your morning today?
+            </div>
+            <div class="question-controls">
+                <button class="btn btn-secondary" onclick="previousQuestion()">← Previous</button>
+                <button class="btn btn-primary" onclick="nextQuestion()">Next →</button>
+            </div>
+        </div>
+        
+        <div class="game-complete" id="gameComplete">
+            <div class="celebration">🎉✨🎊</div>
+            <h2>Congratulations!</h2>
+            <p>You've completed the Team Building Memory Game!</p>
+            <p>Perfect time to discuss those conversation starters with your team!</p>
+            <button class="btn btn-primary" onclick="resetGame()" style="margin-top: 20px;">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        // Game data
+        const emojis = ['😡🐕', '🐶😠', '🦮💢', '🐕‍🦺😤', '🐩🔥', '🐕😾'];
+      const questions = [
+  "What excites you most about investing in the Story Chain EVM ecosystem?",
+  "If you could describe Story Chain’s potential in one word, what would it be?",
+  "Which sector on Story Chain do you think has the strongest growth potential (DeFi, NFTs, Gaming, etc.)?",
+  "What factors do you look at before deciding to invest in a new EVM project?",
+  "How do you see Story Chain competing with other EVM-compatible blockchains?",
+  "What kind of projects on Story Chain would you be most interested in supporting?",
+  "If Story Chain were a long-term investment journey, what would your strategy look like?",
+  "What milestone or development would convince you to increase your investment in Story Chain?",
+  "Which emoji represents your confidence in Story Chain’s future?",
+  "What’s one thing you’d love to see the Story Chain community build this year?"
+];
+
+        
+        // Game state
+        let gameState = {
+            cards: [],
+            flippedCards: [],
+            matches: 0,
+            moves: 0,
+            startTime: null,
+            timer: null,
+            currentQuestion: 0
+        };
+        
+        // Initialize game
+        function initGame() {
+            createCards();
+            shuffleCards();
+            renderCards();
+            startTimer();
+            updateStats();
+            displayQuestion();
+        }
+        
+        function createCards() {
+            gameState.cards = [];
+            emojis.forEach(emoji => {
+                gameState.cards.push({ emoji, id: Math.random(), matched: false, flipped: false });
+                gameState.cards.push({ emoji, id: Math.random(), matched: false, flipped: false });
+            });
+        }
+        
+        function shuffleCards() {
+            for (let i = gameState.cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [gameState.cards[i], gameState.cards[j]] = [gameState.cards[j], gameState.cards[i]];
+            }
+        }
+        
+        function renderCards() {
+            const grid = document.getElementById('gameGrid');
+            grid.innerHTML = '';
+            
+            gameState.cards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'memory-card';
+                cardElement.innerHTML = `
+                    <div class="card-content">${card.emoji}</div>
+                    <div class="card-back">?</div>
+                `;
+                cardElement.addEventListener('click', () => flipCard(index));
+                grid.appendChild(cardElement);
+            });
+        }
+        
+        function flipCard(index) {
+            const card = gameState.cards[index];
+            const cardElement = document.querySelectorAll('.memory-card')[index];
+            
+            if (card.flipped || card.matched || gameState.flippedCards.length >= 2) {
+                return;
+            }
+            
+            card.flipped = true;
+            cardElement.classList.add('flipped');
+            gameState.flippedCards.push(index);
+            
+            if (gameState.flippedCards.length === 2) {
+                gameState.moves++;
+                updateStats();
+                setTimeout(checkMatch, 1000);
+            }
+        }
+        
+        function checkMatch() {
+            const [index1, index2] = gameState.flippedCards;
+            const card1 = gameState.cards[index1];
+            const card2 = gameState.cards[index2];
+            const cardElements = document.querySelectorAll('.memory-card');
+            
+            if (card1.emoji === card2.emoji) {
+                // Match found
+                card1.matched = true;
+                card2.matched = true;
+                cardElements[index1].classList.add('matched');
+                cardElements[index2].classList.add('matched');
+                gameState.matches++;
+                
+                if (gameState.matches === 6) {
+                    setTimeout(gameComplete, 500);
+                }
+            } else {
+                // No match
+                card1.flipped = false;
+                card2.flipped = false;
+                cardElements[index1].classList.remove('flipped');
+                cardElements[index2].classList.remove('flipped');
+            }
+            
+            gameState.flippedCards = [];
+            updateStats();
+        }
+        
+        function startTimer() {
+            gameState.startTime = Date.now();
+            gameState.timer = setInterval(updateTimer, 1000);
+        }
+        
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - gameState.startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60).toString().padStart(2, '0');
+            const seconds = (elapsed % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+        }
+        
+        function updateStats() {
+            document.getElementById('moves').textContent = gameState.moves;
+            document.getElementById('matches').textContent = `${gameState.matches}/6`;
+        }
+        
+        function displayQuestion() {
+            document.getElementById('questionText').textContent = questions[gameState.currentQuestion];
+        }
+        
+        function nextQuestion() {
+            gameState.currentQuestion = (gameState.currentQuestion + 1) % questions.length;
+            displayQuestion();
+        }
+        
+        function previousQuestion() {
+            gameState.currentQuestion = gameState.currentQuestion === 0 ? questions.length - 1 : gameState.currentQuestion - 1;
+            displayQuestion();
+        }
+        
+        function gameComplete() {
+            clearInterval(gameState.timer);
+            document.getElementById('gameComplete').classList.add('show');
+        }
+        
+        function resetGame() {
+            // Reset game state
+            gameState = {
+                cards: [],
+                flippedCards: [],
+                matches: 0,
+                moves: 0,
+                startTime: null,
+                timer: null,
+                currentQuestion: 0
+            };
+            
+            // Hide completion screen
+            document.getElementById('gameComplete').classList.remove('show');
+            
+            // Restart game
+            initGame();
+        }
+        
+        // Buy now function
+        function handleBuyNow() {
+            window.open('https://ip.world/', '_blank', 'noopener,noreferrer');
+        }
+        
+        // Start the game when page loads
+        window.addEventListener('load', initGame);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97bbc46dd7899b44',t:'MTc1NzMwNjQyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
